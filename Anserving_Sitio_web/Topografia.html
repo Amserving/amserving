@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topografía - Amserving SAS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #133f0d;
+            --secondary-color: #133b0e;
+            --accent-color: #ffd54f;
+            --text-color: #333333;
+            --light-bg: #f5f5f5;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--primary-color);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: var(--white);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        main {
+            padding-top: 80px;
+        }
+
+        .hero {
+            background-image: url('bannertopografia.jpeg');
+            background-size: cover;
+            background-position: center;
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out 0.5s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+        }
+
+        .topography-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .topography-text {
+            flex: 1;
+            padding-right: 2rem;
+        }
+
+        .topography-image {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .topography-image img {
+            width: 90%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .service-card-info {
+            padding: 1.5rem;
+        }
+
+        .service-card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .social-icons {
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            nav {
+                display: none;
+            }
+
+            nav.show {
+                display: block;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+
+            .dropdown-content {
+                position: static;
+                display: none;
+                background-color: var(--secondary-color);
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: none;
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+
+            .topography-content {
+                flex-direction: column;
+            }
+
+            .topography-text, .topography-image {
+                flex: 1 0 100%;
+                padding-right: 0;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container header-content">
+            <div class="logo-container">
+                <img src="logoAmserving2.png" alt="Amserving Logo" class="logo-img">
+                <div class="logo-text">Amserving</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="Amserving_sas.html">Inicio</a></li>
+                    <li class="dropdown">
+                        <a href="servicios.html" class="dropbtn">Servicios</a>
+                        <div class="dropdown-content">
+                            <a href="Geologia.html">Geologia</a>
+                            <a href="Mineria.html">Mineria</a>
+                            <a href="Ambiental.html">Ambiental</a>
+                            <a href="Topografia.html">Topografia</a>
+                            <a href="SG_SST.html">SG_SST</a>
+                        </div>
+                    </li>
+                    <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-toggle">&#9776;</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="Geologia" class="hero">
+            <div class="hero-content">
+                <h1>Servicios de Topografia</h1>
+            </div>
+        </section>
+
+        <section id="introduccion" class="section">
+            <div class="container">
+                <h1 class="section-title">Topografía</h1>
+                <div class="topography-content">
+                    <div class="topography-text">
+                        <h2>¿Qué es la Topografía?</h2>
+                        <p>La topografía es la ciencia que estudia la representación gráfica de la superficie terrestre, con sus formas y detalles, tanto naturales como artificiales. Esta disciplina es fundamental en diversos campos, ingeniería de minas, como la ingeniería civil, la arquitectura, la geología y la planificación urbana.</p>
+                        <p>En Amserving, ofrecemos servicios topográficos de alta precisión utilizando las últimas tecnologías y metodologías para garantizar resultados confiables y precisos en todos nuestros proyectos.</p>
+                    </div>
+                    <div class="topography-image">
+                        <img src="topografia imag.gif" alt="Topografía en acción">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicios-topograficos" class="section">
+            <div class="container">
+                <h2 class="section-title">Nuestros Servicios Topográficos</h2>
+                <div class="service-grid">
+                    <div class="service-card">
+                        <img src="topografialevantamiento.jpeg" alt="Levantamiento topográfico">
+                        <div class="service-card-info">
+                            <h3 class="service-card-title">Levantamiento Topográfico</h3>
+                            <p>Realizamos levantamientos topográficos precisos para diversos proyectos, utilizando equipos de última generación como estaciones totales y GPS diferencial.</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <img src="topografiacartografia.jpeg" alt="Cartografía">
+                        <div class="service-card-info">
+                            <h3 class="service-card-title">Cartografía</h3>
+                            <p>Elaboramos mapas y planos detallados que representan con precisión las características del terreno y los elementos presentes en el área de estudio.</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <img src="topografiaminera2.jpeg" alt="Topografía minera">
+                        <div class="service-card-info">
+                            <h3 class="service-card-title">Topografía Minera</h3>
+                            <p>Ofrecemos servicios especializados en topografía minera, incluyendo el diseño y control de excavaciones, monitoreo de estabilidad y planificación de infraestructuras mineras.</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <img src="topografiamojon.jpeg" alt="Topografía minera">
+                        <div class="service-card-info">
+                            <h3 class="service-card-title">Georreferenciación del mojon IGAC</h3>
+                            <p>La georreferenciación de mojones desde un mojón base del IGAC permite establecer con precisión los límites de un proyecto minero. A partir del mojón base, se posicionan los mojones secundarios que delimitan el área del proyecto, asegurando su correcta ubicación y legalidad.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="topografia-minera" class="section">
+            <div class="container">
+                <h2 class="section-title">Topografía Minera</h2>
+                <div class="topography-content">
+                    <div class="topography-text">
+                        <h3>¿Qué es la Topografía Minera?</h3>
+                        <p>La topografía minera se enfoca en el levantamiento y representación precisa del terreno y las excavaciones en operaciones mineras. Esto incluye la planificación, diseño y monitoreo de la explotación minera. Su objetivo es asegurar la seguridad y eficiencia en la extracción de recursos minerales.</p>
+                        <h4>Servicios de Topografía Minera:</h4>
+                        <ul>
+                            <li>Levantamientos y planificación de terreno</li>
+                            <li>Control de excavaciones y tunelado</li>
+                            <li>Monitoreo de estabilidad</li>
+                            <li>Diseño y supervisión de infraestructuras mineras</li>
+                            <li>Mantenimiento de registros y documentación</li>
+                        </ul>
+                    </div>
+                    <div class="topography-image">
+                        <img src="topografiaminera.png" alt="Topografía minera">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tecnologia" class="section">
+            <div class="container">
+                <h2 class="section-title">Nuestra Tecnología</h2>
+                <div class="topography-content">
+                    <div class="topography-image">
+                        <img src="topografianuestratecnologia.png" alt="Tecnología topográfica">
+                    </div>
+                    <div class="topography-text">
+                        <h3>Equipos y Software de Última Generación</h3>
+                        <p>En Amserving, utilizamos la tecnología más avanzada para garantizar la precisión y eficiencia en nuestros servicios topográficos:</p>
+                        <ul>
+                            <li>Estaciones totales robóticas</li>
+                            <li>Sistemas GPS de alta precisión</li>
+                            <li>Escáneres láser 3D</li>
+                            <li>Drones para fotogrametría aérea</li>
+                            <li>Software de procesamiento de datos topográficos y modelado 3D</li>
+                        </ul>
+                        <p>Nuestra inversión en tecnología de punta nos permite ofrecer resultados precisos y eficientes en todos nuestros proyectos topográficos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <p>amserving.sas@gmail.com</p>
+                    <p>Teléfono: 5748017  Cel.: 314-3817952</p>
+                    <p>Avenida 1 N° 14-63 Oficina 301 Edificio San Vicente 2, Cúcuta</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Síguenos</h3>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/amserving.sas?mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/amservingsas/?hl=es" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Amserving. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+    <script>
+        // Cambiar el color del encabezado al hacer scroll
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.style.backgroundColor = 'rgba(19, 63, 13, 0.9)';
+            } else {
+                header.style.backgroundColor = 'var(--primary-color)';
+            }
+        });
+
+        // Mostrar/ocultar menú desplegable en dispositivos móviles
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const nav = document.querySelector('nav');
+
+        mobileMenuToggle.addEventListener('click', function() {
+            nav.classList.toggle('show');
+        });
+
+        // Cerrar el menú al hacer clic en un enlace (para dispositivos móviles)
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (nav.classList.contains('show')) {
+                    nav.classList.remove('show');
+                }
+            });
+        });
+        
+        const appearOptions = {
+            threshold: 0,
+            rootMargin: "0px 0px -100px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('appear');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        fadeElems.forEach(elem => {
+            appearOnScroll.observe(elem);
+        });
+
+        // Smooth scrolling para los enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

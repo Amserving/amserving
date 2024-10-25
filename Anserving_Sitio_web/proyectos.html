@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyectos - Amserving SAS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #133f0d;
+            --secondary-color: #133b0e;
+            --accent-color: #ffd54f;
+            --text-color: #333333;
+            --light-bg: #f5f5f5;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        .hero {
+            background-image: url('banneramserving1.png');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            margin-top: 80px;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out 0.5s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .project-details {
+            padding: 4rem 0;
+        }
+
+        .project-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .project-details-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .project-details-content h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .project-details-content p {
+            margin-bottom: 1rem;
+        }
+
+        .testimonials {
+            background-color: var(--white);
+            padding: 4rem 0;
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .testimonial {
+            display: none;
+        }
+
+        .testimonial.active {
+            display: block;
+        }
+
+        .testimonial-content {
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .social-icons {
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent-color);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                padding: 1rem;
+            }
+
+            nav.show {
+                display: block;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+
+            .project-details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container header-content">
+            <div class="logo-container">
+                <img src="logoAmserving2.png" alt="Amserving Logo" class="logo-img">
+                <div class="logo-text">Amserving</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="Amserving_sas.html">Inicio</a></li>
+                    <li><a href="servicios.html">Servicios</a></li>
+                    <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
+                    <li><a href="proyectos.html">Proyectos</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-toggle">&#9776;</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Nuestros Proyectos</h1>
+                <p>Descubre cómo estamos haciendo la diferencia en el medio ambiente</p>
+            </div>
+        </section>
+
+        <section id="proyectos-destacados" class="section">
+            <div class="container">
+                <h2 class="section-title">Proyectos Destacados</h2>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <img src="banneramserving1.png" alt="Proyecto 1">
+                        <div class="project-content">
+                            <h3>Reforestación Amazónica</h3>
+                            <p>Restauración de 1000 hectáreas de bosque amazónico con especies nativas.</p>
+                            <a href="#proyecto1" class="btn">Ver detalles</a>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="banneramserving1.png" alt="Proyecto 2">
+                        <div class="project-content">
+                            <h3>Energía Solar para Comunidades</h3>
+                            <p>Instalación de paneles solares en 50 comunidades rurales.</p>
+                            <a href="#proyecto2" class="btn">Ver detalles</a>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="banneramserving1.png" alt="Proyecto 3">
+                        <div class="project-content">
+                            <h3>Programa de Reciclaje Urbano</h3>
+                            <p>Implementación de un sistema de reciclaje eficiente en 10 ciudades.</p>
+                            <a href="#proyecto3" class="btn">Ver detalles</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="proyecto1" class="project-details">
+            <div class="container">
+                <div class="project-details-grid">
+                    <img src="banneramserving1.png" alt="Reforestación Amazónica" class="project-details-image">
+                    <div class="project-details-content">
+                        <h2>Reforestación Amazónica</h2>
+                        <h3>Restaurando el pulmón del mundo</h3>
+                        <p>Nuestro proyecto de reforestación amazónica tiene como objetivo restaurar 1000 hectáreas de bosque tropical en la región amazónica. Trabajamos en estrecha colaboración con comunidades locales y expertos en biodiversidad para asegurar la plantación de especies nativas y la creación de corredores ecológicos.</p>
+                        <p>Logros clave:</p>
+                        <ul>
+                            <li>Plantación de más de 500,000 árboles nativos</li>
+                            <li>Creación de empleos locales para más de 200 personas</li>
+                            <li>Recuperación del hábitat para especies en peligro de extinción</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="proyecto2" class="project-details">
+            <div class="container">
+                <div class="project-details-grid">
+                    <div class="project-details-content">
+                        <h2>Energía Solar para Comunidades</h2>
+                        <h3>Iluminando vidas con energía limpia</h3>
+                        <p>Este proyecto tiene como objetivo proporcionar acceso a energía limpia y sostenible a 50 comunidades rurales que anteriormente no tenían acceso confiable a la electricidad. Mediante la instalación de paneles solares y sistemas de almacenamiento de energía, estamos mejorando la calidad de vida y las oportunidades económicas de miles de personas.</p>
+                        <p>Impacto del proyecto:</p>
+                        <ul>
+                            <li>Más de 10,000 hogares beneficiados</li>
+                            <li>Reducción de emisiones de CO2 en 5,000 toneladas anuales</li>
+                            <li>Mejora en la educación y la atención médica local</li>
+                        </ul>
+                    </div>
+                    <img src="banneramserving1.png" alt="Energía Solar para Comunidades" class="project-details-image">
+                </div>
+            </div>
+        </section>
+
+        <section id="proyecto3" class="project-details">
+            <div class="container">
+                <div class="project-details-grid">
+                    <img src="banneramserving1.png" alt="Programa de Reciclaje Urbano" class="project-details-image">
+                    <div class="project-details-content">
+                        <h2>Programa de Reciclaje Urbano</h2>
+                        <h3>Transformando ciudades, un residuo a la vez</h3>
+                        <p>Nuestro programa de reciclaje urbano está revolucionando la gestión de residuos en 10 grandes ciudades. A través de la implementación de tecnología avanzada de clasificación, programas de educación comunitaria y colaboraciones con empresas locales, estamos creando un modelo sostenible de economía circular.</p>
+                        <p>Resultados destacados:</p>
+                        <ul>
+                            <li>Aumento del 60% en las tasas de reciclaje</li>
+                            <li>Creación de más de 1,000 empleos verdes</li>
+                            <li>Reducción del 40% en residuos enviados a vertederos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonios" class="section testimonials">
+            <div class="container">
+                <h2 class="section-title">Testimonios</h2>
+                <div class="testimonial-slider">
+                    <div class="testimonial active">
+                        <p class="testimonial-content">"El proyecto de reforestación de Amserving ha transformado nuestra comunidad. No solo hemos visto el retorno de especies nativas, sino que también ha creado oportunidades de empleo sostenible."</p>
+                        <p class="testimonial-author">- Carlos Mendoza, Líder Comunitario</p>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial-content">"La instalación de paneles solares en nuestra aldea ha sido revolucionaria. Ahora nuestros niños pueden estudiar por la noche y hemos podido iniciar pequeños negocios. Amserving nos ha dado una nueva perspectiva de futuro."</p>
+                        <p class="testimonial-author">- María Gómez, Residente local</p>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial-content">"Como alcalde, he visto de primera mano el impacto positivo del programa de reciclaje urbano de Amserving. Nuestra ciudad está más limpia, hemos creado empleos y estamos contribuyendo a un futuro más sostenible."</p>
+                        <p class="testimonial-author">- Jorge Ramírez, Alcalde de Ciudad Verde</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <p>amserving.sas@gmail.com</p>
+                    <p>Teléfono: 5748017  Cel.: 314-3817952 </p>
+                    <p>Avenida 1 N° 14-63 Oficina 301 Edificio San Vicente 2 , Cucuta </p>
+                </div>
+                <div class="footer-section">
+                    <h3>Síguenos</h3>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/amserving.sas?mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/amservingsas/?hl=es" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Amserving. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Cambiar el color del encabezado al hacer scroll
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.style.backgroundColor = 'rgba(19, 63, 13, 0.9)';
+            } else {
+                header.style.backgroundColor = 'var(--primary-color)';
+            }
+        });
+
+        // Slider de testimonios
+        let testimonials = document.querySelectorAll('.testimonial');
+        let currentTestimonial = 0;
+
+        function showNextTestimonial() {
+            testimonials[currentTestimonial].classList.remove('active');
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            testimonials[currentTestimonial].classList.add('active');
+        }
+
+        setInterval(showNextTestimonial, 5000);
+
+        // Animación de aparición al hacer scroll
+        const fadeElems = document.querySelectorAll('.project-card, .project-details');
+        
+        const appearOptions = {
+            threshold: 0,
+            rootMargin: "0px 0px -100px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('appear');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        fadeElems.forEach(elem => {
+            appearOnScroll.observe(elem);
+        });
+
+        // Smooth scrolling para los enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mostrar/ocultar menú en dispositivos móviles
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const nav = document.querySelector('nav');
+
+        mobileMenuToggle.addEventListener('click', function() {
+            nav.classList.toggle('show');
+        });
+
+        // Cerrar menú móvil al hacer clic en un enlace
+        const navLinks = document.querySelectorAll('nav ul li a');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (nav.classList.contains('show')) {
+                    nav.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>    
